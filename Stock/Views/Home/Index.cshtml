@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model ResponseModel;
+<div class="text-center">
+    <form action="/Home/Index" method="post">
+        <input name="name" type="text"/>
+        <button type="submit">Поиск</button>
+    </form>
+    <table  class="table">
+        <thead>
+        <tr>
+        <th>open</th>
+        <th>high</th>
+        <th>low</th>
+        <th>last</th>
+        <th>close</th>
+        <th>volume</th>
+        <th>date</th>
+        <th>symbol</th>
+        <th>exchange</th>
+        </tr>
+        </thead>
+        @if (Model != null && Model.data != null)
+    @foreach (var data in Model.data) { 
+        <tr>
+            <td>@data.Open</td>
+            <td>@data.High</td>
+            <td>@data.Low</td>
+            <td>@data.Last</td>
+            <td>@data.Close</td>
+            <td>@data.Volume</td>
+            <td>@data.Date</td>
+            <td>@data.Symbol</td>
+            <td>@data.Exchange</td>
+        </tr>
+    }
+    </table>
+</div>
