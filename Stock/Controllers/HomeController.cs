@@ -27,30 +27,59 @@ namespace Stock.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View(new ResponseModel());
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(string name)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get,
-            "http://api.marketstack.com/v1/intraday?access_key="+_configuration.Key+"&symbols="+name);
+            var data = await GetData(name);
+            return View(data);
+        }
+
+        public async Task SendResults(string name)
+        {
+            var datas = await GetData(name);
+            foreach(var data in datas.data)
+            {
+                string url = $"https://localhost:4300/Home/Export";
+                var request = new HttpRequestMessage(HttpMethod.Post, url);
+                request.Headers.Add("open", data.Open);
+                request.Headers.Add("high", data.High);
+                request.Headers.Add("low", data.Low);
+                request.Headers.Add("last", data.Last);
+                request.Headers.Add("close", data.Close);
+                request.Headers.Add("volume", data.Volume);
+                request.Headers.Add("date", data.Date);
+                request.Headers.Add("symbol", data.Symbol);
+                request.Headers.Add("exchange", data.Exchange);
+                using (var client = new HttpClient())
+                {
+                    var response = await client.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseStream = await response.Content.ReadAsStringAsync();
+                    }
+                }
+            }
+        }
+
+        private async Task<ResponseModel> GetData(string name)
+        {
+            string url = $"http://api.marketstack.com/v1/intraday?access_key={_configuration.Key}&symbols={name}";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
             var data = new ResponseModel();
+            data.Name = name;
             using (var client = new HttpClient())
             {
                 var response = await client.SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
-                    using var responseStream = await response.Content.ReadAsStreamAsync();
-                    var encoding = ASCIIEncoding.ASCII;
-                    using (var reader = new System.IO.StreamReader(responseStream, encoding))
-                    {
-                        string responseText = reader.ReadToEnd();
-                        data = JsonConvert.DeserializeObject<ResponseModel>(responseText);
-                    }
+                    var responseStream = await response.Content.ReadAsStringAsync();
+                    data = JsonConvert.DeserializeObject<ResponseModel>(responseStream);
                 }
             }
-            return View(data);
+            return data;
         }
 
         public IActionResult Privacy()

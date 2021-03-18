@@ -7,6 +7,7 @@ namespace Stock.Models
 {
     public class ResponseModel
     {
+        public string Name { get; set; }
         public PaginationModel pagination { get; set; }
 
         public List<StockModel> data { get; set; }
