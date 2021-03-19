@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "zMLVi8Yhaj/D1jf9m/Z+rm4tfgIC/WCxIDIZBfVansUkzaSTphnqwFWYh/q2syp4X1stc+kOScBCZB8FZCHm2Q==",
+  "dgSpecHash": "hlCleVShPeDFayoPwnUcqYBNRJuhbYH5SPvbKNna5PMCQI7RFGbmilnVbMpXAyCer9DgAc4YGQbdEiAXQtBm0g==",
   "success": true,
-  "projectFilePath": "C:\\projects\\stock\\Stock\\Stock\\Stock.csproj",
+  "projectFilePath": "C:\\projects\\stock\\Stock\\Stock.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Дильназ\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "C:\\Users\\esken\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

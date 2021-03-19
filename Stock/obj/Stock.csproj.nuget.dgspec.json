@@ -1,27 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\stock\\Stock\\Stock\\Stock.csproj": {}
+    "C:\\projects\\stock\\Stock\\Stock.csproj": {}
   },
   "projects": {
-    "C:\\projects\\stock\\Stock\\Stock\\Stock.csproj": {
+    "C:\\projects\\stock\\Stock\\Stock.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\stock\\Stock\\Stock\\Stock.csproj",
+        "projectUniqueName": "C:\\projects\\stock\\Stock\\Stock.csproj",
         "projectName": "Stock",
-        "projectPath": "C:\\projects\\stock\\Stock\\Stock\\Stock.csproj",
-        "packagesPath": "C:\\Users\\Дильназ\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\stock\\Stock\\Stock\\obj\\",
+        "projectPath": "C:\\projects\\stock\\Stock\\Stock.csproj",
+        "packagesPath": "C:\\Users\\esken\\.nuget\\packages\\",
+        "outputPath": "C:\\projects\\stock\\Stock\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Дильназ\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\esken\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

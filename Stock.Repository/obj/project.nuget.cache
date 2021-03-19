@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "uJoSnr5Kmljx/sWK8hIetVTdRRbtU9oynHtIEebLtPOHVts0ZbZvwW5eN3e2AlP0RGAk5MQz8yDkZUnNYQcVWA==",
+  "dgSpecHash": "fAPSmDcrbqyJxOr08SQPBIXUh0E5dW9P8zWyi1AaYpqs8drl0tGDf61MUflUKe9GXcO7I7QiTnCecHB17DYVKw==",
   "success": true,
-  "projectFilePath": "C:\\projects\\stock\\Stock\\Stock.Repository\\Stock.Repository.csproj",
+  "projectFilePath": "C:\\projects\\stock\\Stock.Repository\\Stock.Repository.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Дильназ\\.nuget\\packages\\csvhelper\\26.0.1\\csvhelper.26.0.1.nupkg.sha512",
-    "C:\\Users\\Дильназ\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
-    "C:\\Users\\Дильназ\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "C:\\Users\\esken\\.nuget\\packages\\csvhelper\\26.0.1\\csvhelper.26.0.1.nupkg.sha512",
+    "C:\\Users\\esken\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\esken\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

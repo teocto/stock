@@ -14,8 +14,8 @@
         <input name="name" type="text"/>
         <button type="submit">Поиск</button>
     </form>
-        <a ajaxy href="/Home/SendResults?name=@Model.Name">Сохранить в хранилище</a>
-        <button name="name" value="@Model.Name" asp-action="SendResults" >Получить все данные из хранилища</button>
+        <a ajaxy href="/Home/SendResults?name=@Model.Name"><button>Сохранить в хранилище</button></a>
+        <a href="/Home/GetDataFromDb" class="btn"><button>Получить все данные из хранилища</button></a>
     <table  class="table">
         <thead>
         <tr>
@@ -44,7 +44,7 @@
             <td>@data.Exchange</td>
         </tr>
     }
-    @if (Model != null && Model.data == null){
+    @if (Model != null && Model.data == null && Model.Name!=null){
         <p>Что-то пошло не так: введенные данные неверны</p>
     }
     </table>
@@ -69,13 +69,13 @@
                     var url = $this.attr("href");
                     displayBusyIndicator();
                     $.post(url).done(function (res) {
+                        hideBusyIndicator();
                         $this.closest("tr").fadeOut(300, function (a) {
                             $(this).remove();
                         });
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         alert("Что-то пошло не так" + errorThrown);
                     })
-                    hideBusyIndicator();
                 }
             });
         });

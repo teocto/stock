@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -45,25 +46,43 @@ namespace Stock.Controllers
             {
                 string url = $"https://localhost:4300/Home/Export";
                 var request = new HttpRequestMessage(HttpMethod.Post, url);
-                request.Headers.Add("open", data.Open);
-                request.Headers.Add("high", data.High);
-                request.Headers.Add("low", data.Low);
-                request.Headers.Add("last", data.Last);
-                request.Headers.Add("close", data.Close);
-                request.Headers.Add("volume", data.Volume);
-                request.Headers.Add("date", data.Date);
-                request.Headers.Add("symbol", data.Symbol);
-                request.Headers.Add("exchange", data.Exchange);
+                request.Headers.Add("Open", data.Open) ;
+                request.Headers.Add("High", data.High);
+                request.Headers.Add("Low", data.Low);
+                request.Headers.Add("Last", data.Last);
+                request.Headers.Add("Close", data.Close);
+                request.Headers.Add("Volume", data.Volume);
+                request.Headers.TryAddWithoutValidation("Date", data.Date);
+                request.Headers.Add("Symbol", data.Symbol);
+                request.Headers.Add("Exchange", data.Exchange);
+                   
                 using (var client = new HttpClient())
                 {
                     var response = await client.SendAsync(request);
                     if (response.IsSuccessStatusCode)
                     {
-                        var responseStream = await response.Content.ReadAsStringAsync();
+                            Console.WriteLine("send");
                     }
                 }
             }
             return Ok();
+        }
+
+        public async Task<IActionResult> GetDataFromDb()
+        {
+            string url = $"https://localhost:4300/Home/ReadData";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var data = new ResponseModel();
+            using (var client = new HttpClient())
+            {
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseStream = await response.Content.ReadAsStringAsync();
+                    data.data = JsonConvert.DeserializeObject<List<StockModel>>(responseStream);
+                }
+            }
+            return View("Index", data);
         }
 
         private async Task<ResponseModel> GetData(string name)
@@ -84,15 +103,5 @@ namespace Stock.Controllers
             return data;
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

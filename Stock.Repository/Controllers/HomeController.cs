@@ -1,6 +1,8 @@
 ﻿using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic.FileIO;
+using Newtonsoft.Json;
 using Stock.Models;
 using Stock.Repository.Models;
 using System;
@@ -27,19 +29,30 @@ namespace Stock.Repository.Controllers
             return View();
         }
 
-        public IActionResult Export(StockModel model)
+        [HttpPost]
+        public IActionResult Export([FromHeader]StockModel model)
         {
-            using (TextWriter writer = new StreamWriter(@"C:\test.csv", false, System.Text.Encoding.UTF8))
+            using (TextWriter writer = new StreamWriter(@"C:\test.csv", true, System.Text.Encoding.UTF8))
             {
-                var csv = new CsvWriter(writer, new System.Globalization.CultureInfo("ru"), true);
-                csv.WriteRecord(model); // where values implements IEnumerable
+                string json = JsonConvert.SerializeObject(model);
+                writer.WriteLine(json);
             }
             return Ok();
         }
 
-        public IActionResult Privacy()
+        public string ReadData()
         {
-            return View();
+            string data = "[";
+            using (var reader = new StreamReader(@"C:\test.csv"))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    data += line + ",";
+                }
+            }
+            data += "]";
+            return data;
         }
 
     }
