@@ -37,9 +37,10 @@ namespace Stock.Controllers
             return View(data);
         }
 
-        public async Task SendResults(string name)
+        public async Task<IActionResult> SendResults(string name)
         {
             var datas = await GetData(name);
+            if(datas.data != null)
             foreach(var data in datas.data)
             {
                 string url = $"https://localhost:4300/Home/Export";
@@ -62,6 +63,7 @@ namespace Stock.Controllers
                     }
                 }
             }
+            return Ok();
         }
 
         private async Task<ResponseModel> GetData(string name)
@@ -69,7 +71,6 @@ namespace Stock.Controllers
             string url = $"http://api.marketstack.com/v1/intraday?access_key={_configuration.Key}&symbols={name}";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             var data = new ResponseModel();
-            data.Name = name;
             using (var client = new HttpClient())
             {
                 var response = await client.SendAsync(request);
@@ -77,6 +78,7 @@ namespace Stock.Controllers
                 {
                     var responseStream = await response.Content.ReadAsStringAsync();
                     data = JsonConvert.DeserializeObject<ResponseModel>(responseStream);
+                    data.Name = name;
                 }
             }
             return data;

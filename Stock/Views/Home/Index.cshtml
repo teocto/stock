@@ -2,12 +2,20 @@
     ViewData["Title"] = "Home Page";
 }
 @model ResponseModel;
+<div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary mb-3" 
+                style="width: 3rem; height: 3rem; display: none" 
+                role="status" id="loading">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
 <div class="text-center">
     <form action="/Home/Index" method="post">
         <input name="name" type="text"/>
         <button type="submit">Поиск</button>
     </form>
-        <button name="name" value="@Model.Name" asp-action="SendResults" >Загрузить в CSV</button>
+        <a ajaxy href="/Home/SendResults?name=@Model.Name">Сохранить в хранилище</a>
+        <button name="name" value="@Model.Name" asp-action="SendResults" >Получить все данные из хранилища</button>
     <table  class="table">
         <thead>
         <tr>
@@ -36,5 +44,41 @@
             <td>@data.Exchange</td>
         </tr>
     }
+    @if (Model != null && Model.data == null){
+        <p>Что-то пошло не так: введенные данные неверны</p>
+    }
     </table>
 </div>
+@section Scripts
+{
+    <script>
+
+        $(function () {
+            function displayBusyIndicator() {
+            document.getElementById("loading").style.display = "block";
+            }
+            function hideBusyIndicator() {
+            document.getElementById("loading").style.display = "none";
+            }
+            $("a[ajaxy]").click(function (e) {
+                e.preventDefault();
+
+                if (window.confirm("Вы уверены?")) {
+
+                    var $this = $(this);
+                    var url = $this.attr("href");
+                    displayBusyIndicator();
+                    $.post(url).done(function (res) {
+                        $this.closest("tr").fadeOut(300, function (a) {
+                            $(this).remove();
+                        });
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        alert("Что-то пошло не так" + errorThrown);
+                    })
+                    hideBusyIndicator();
+                }
+            });
+        });
+
+    </script>
+}
